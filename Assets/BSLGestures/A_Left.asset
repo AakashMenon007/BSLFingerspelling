@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1083cad48ccfea4bbf552c9554132f0, type: 3}
+  m_Name: A_Left
+  m_EditorClassIdentifier: 
+  handName: A_Left
+  fingerCurls:
+  - fingerId: 0
+    curl: 0.07373023
+  - fingerId: 1
+    curl: 0.08860278
+  - fingerId: 2
+    curl: 0.019018054
+  - fingerId: 3
+    curl: 0.28827697
+  - fingerId: 4
+    curl: 0.2519148
