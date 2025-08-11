@@ -216,7 +216,7 @@
     },
     "com.unity.xr.core-utils": {
       "version": "2.5.1",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.xr": "1.0.0"
@@ -254,7 +254,7 @@
     },
     "com.unity.xr.legacyinputhelpers": {
       "version": "2.1.11",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.vr": "1.0.0",
@@ -282,6 +282,15 @@
       "dependencies": {
         "com.unity.xr.openxr": "1.7.0",
         "com.unity.xr.arfoundation": "5.1.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.oculus": {
+      "version": "4.5.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.xr.management": "4.4.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -390,7 +399,7 @@
     },
     "com.unity.modules.subsystems": {
       "version": "1.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.jsonserialize": "1.0.0"
