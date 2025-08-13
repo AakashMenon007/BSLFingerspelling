@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.XR.Hands.Samples.GestureSample;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
 
     private float displayTimer;
 
-    // Tracking detection states
+    // Track which gestures are currently active
     private Dictionary<StaticHandGesture, bool> gestureDetected = new Dictionary<StaticHandGesture, bool>();
 
     private void OnEnable()
@@ -32,14 +32,14 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
             if (link.leftGesture != null)
             {
                 gestureDetected[link.leftGesture] = false;
-                link.leftGesture.gesturePerformed.AddListener(() => OnGesturePerformed(link.leftGesture, link));
+                link.leftGesture.gesturePerformed.AddListener(() => OnGesturePerformed(link.leftGesture));
                 link.leftGesture.gestureEnded.AddListener(() => OnGestureEnded(link.leftGesture));
             }
 
             if (link.rightGesture != null)
             {
                 gestureDetected[link.rightGesture] = false;
-                link.rightGesture.gesturePerformed.AddListener(() => OnGesturePerformed(link.rightGesture, link));
+                link.rightGesture.gesturePerformed.AddListener(() => OnGesturePerformed(link.rightGesture));
                 link.rightGesture.gestureEnded.AddListener(() => OnGestureEnded(link.rightGesture));
             }
         }
@@ -64,23 +64,37 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
         gestureDetected.Clear();
     }
 
-    private void OnGesturePerformed(StaticHandGesture gesture, BSLLetterLink link)
+    private void OnGesturePerformed(StaticHandGesture gesture)
     {
         gestureDetected[gesture] = true;
-
-        // Check if BOTH hands for this letter are detected
-        if (gestureDetected.ContainsKey(link.leftGesture) &&
-            gestureDetected.ContainsKey(link.rightGesture) &&
-            gestureDetected[link.leftGesture] &&
-            gestureDetected[link.rightGesture])
-        {
-            ShowLetter(link.letter);
-        }
+        CheckForMatchingLetter();
     }
 
     private void OnGestureEnded(StaticHandGesture gesture)
     {
         gestureDetected[gesture] = false;
+        CheckForMatchingLetter();
+    }
+
+    private void CheckForMatchingLetter()
+    {
+        foreach (var link in letters)
+        {
+            if (link.leftGesture != null && link.rightGesture != null)
+            {
+                bool leftActive = gestureDetected.ContainsKey(link.leftGesture) && gestureDetected[link.leftGesture];
+                bool rightActive = gestureDetected.ContainsKey(link.rightGesture) && gestureDetected[link.rightGesture];
+
+                if (leftActive && rightActive)
+                {
+                    ShowLetter(link.letter);
+                    return; // Stop checking once we found the match
+                }
+            }
+        }
+
+        // No match found → clear the text
+        outputText.text = "";
     }
 
     private void ShowLetter(string letter)

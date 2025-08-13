@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 740f51a1ac4b42088297287229057627, type: 3}
-  m_Name: Right D_Pose
+  m_Name: Right_C_Pose
   m_EditorClassIdentifier: 
-  m_HandShape: {fileID: 11400000, guid: 693db29784ed6554497cf0059a76013d, type: 2}
+  m_HandShape: {fileID: 11400000, guid: d3fe5b5b56e14254896f7c3dcfcb4082, type: 2}
   m_RelativeOrientation:
     m_UserConditions:
     - m_HandAxis: 0
