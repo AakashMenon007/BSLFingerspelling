@@ -372,7 +372,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac6feda0f4e3afd4aa489b7ff68494f9, type: 2}
   - {fileID: 11400000, guid: a53fcf56777dec149ba1cd280a1d282c, type: 2}
   targetCube: {fileID: 1350800685}
-  positionThreshold: 0.1
+  positionThreshold: 0.17
   rotationThreshold: 100
   matchedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &48398808 stripped
