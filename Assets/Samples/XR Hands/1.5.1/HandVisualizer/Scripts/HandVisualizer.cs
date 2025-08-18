@@ -1,8 +1,5 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
-#if OPENXR_AVAILABLE
-using UnityEngine.XR.OpenXR;
-#endif
 
 namespace UnityEngine.XR.Hands.Samples.VisualizerSample
 {
@@ -32,48 +29,17 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
             None,
         }
 
-#if !XRHANDS_1_6_0
-        /// <summary>
-        /// Describes which version of authored hand meshes is detected for use by the provider.
-        /// </summary>
-        public enum XRDetectedHandMeshLayout
-        {
-            /// <summary>
-            /// The system was unable to detect a hand mesh layout to use.
-            /// </summary>
-            Unknown,
-
-            /// <summary>
-            /// The originally shipped version of sample meshes provided by the XR Hands package, compatible with Meta Quest in OpenXR.
-            /// </summary>
-            OpenXRMetaQuest,
-
-            /// <summary>
-            /// The version of sample meshes that is meant for use with the Android XR runtime in OpenXR.
-            /// </summary>
-            OpenXRAndroidXR,
-        }
-#endif
-
         [SerializeField]
         [Tooltip("If this is enabled, this component will enable the Input System internal feature flag 'USE_OPTIMIZED_CONTROLS'. You must have at least version 1.5.0 of the Input System and have its backend enabled for this to take effect.")]
         bool m_UseOptimizedControls;
 
-        [SerializeField, FormerlySerializedAs("m_LeftHandMesh")]
-        [Tooltip("References either a prefab or a GameObject in the scene that will be used to visualize the left hand.")]
-        GameObject m_MetaQuestLeftHandMesh;
-
-        [SerializeField, FormerlySerializedAs("m_RightHandMesh")]
-        [Tooltip("References either a prefab or a GameObject in the scene that will be used to visualize the right hand.")]
-        GameObject m_MetaQuestRightHandMesh;
-
         [SerializeField]
         [Tooltip("References either a prefab or a GameObject in the scene that will be used to visualize the left hand.")]
-        GameObject m_AndroidXRLeftHandMesh;
+        GameObject m_LeftHandMesh;
 
         [SerializeField]
         [Tooltip("References either a prefab or a GameObject in the scene that will be used to visualize the right hand.")]
-        GameObject m_AndroidXRRightHandMesh;
+        GameObject m_RightHandMesh;
 
         [SerializeField]
         [Tooltip("(Optional) If this is set, the hand meshes will be assigned this material.")]
@@ -128,6 +94,7 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
             get => m_VelocityType;
             set => m_VelocityType = value;
         }
+
 
         XRHandSubsystem m_Subsystem;
         HandGameObjects m_LeftHandGameObjects;
@@ -218,25 +185,12 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
             if (!foundRunningHandSubsystem)
                 return;
 
-            var meshType = GetProviderLayoutMesh();
-            GameObject selectedLeftHandMesh = null, selectedRightHandMesh = null;
-            if (meshType == XRDetectedHandMeshLayout.OpenXRAndroidXR)
-            {
-                selectedLeftHandMesh = m_AndroidXRLeftHandMesh;
-                selectedRightHandMesh = m_AndroidXRRightHandMesh;
-            }
-            else
-            {
-                selectedLeftHandMesh = m_MetaQuestLeftHandMesh;
-                selectedRightHandMesh = m_MetaQuestRightHandMesh;
-            }
-
             if (m_LeftHandGameObjects == null)
             {
                 m_LeftHandGameObjects = new HandGameObjects(
                     Handedness.Left,
                     transform,
-                    selectedLeftHandMesh,
+                    m_LeftHandMesh,
                     m_HandMeshMaterial,
                     m_DebugDrawPrefab,
                     m_VelocityPrefab);
@@ -247,7 +201,7 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
                 m_RightHandGameObjects = new HandGameObjects(
                     Handedness.Right,
                     transform,
-                    selectedRightHandMesh,
+                    m_RightHandMesh,
                     m_HandMeshMaterial,
                     m_DebugDrawPrefab,
                     m_VelocityPrefab);
@@ -261,26 +215,6 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
             m_PreviousVelocityType = m_VelocityType;
 
             SubscribeHandSubsystem();
-        }
-
-        XRDetectedHandMeshLayout GetProviderLayoutMesh()
-        {
-#if XRHANDS_1_6_0
-            return m_Subsystem.detectedHandMeshLayout;
-#elif OPENXR_AVAILABLE
-            var openXRRuntimeName = OpenXRRuntime.name;
-            if (openXRRuntimeName == "Oculus")
-            {
-                return XRDetectedHandMeshLayout.OpenXRMetaQuest;
-            }
-            else if (openXRRuntimeName == "Android XR")
-            {
-                return XRDetectedHandMeshLayout.OpenXRAndroidXR;
-            }
-            return XRDetectedHandMeshLayout.Unknown;
-#else
-            return XRDetectedHandMeshLayout.Unknown;
-#endif
         }
 
         void SubscribeHandSubsystem()
@@ -394,7 +328,6 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
             GameObject[] m_DrawJoints = new GameObject[XRHandJointID.EndMarker.ToIndex()];
             GameObject[] m_VelocityParents = new GameObject[XRHandJointID.EndMarker.ToIndex()];
             LineRenderer[] m_Lines = new LineRenderer[XRHandJointID.EndMarker.ToIndex()];
-            JointVisualizer[] m_JointVisualizers = new JointVisualizer[XRHandJointID.EndMarker.ToIndex()];
 
             static Vector3[] s_LinePointsReuse = new Vector3[2];
             XRHandMeshController m_MeshController;
@@ -425,9 +358,6 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
                     m_Lines[jointIndex].startWidth = m_Lines[jointIndex].endWidth = k_LineWidth;
                     s_LinePointsReuse[0] = s_LinePointsReuse[1] = jointDrivenTransform.position;
                     m_Lines[jointIndex].SetPositions(s_LinePointsReuse);
-
-                    if (m_DrawJoints[jointIndex].TryGetComponent<JointVisualizer>(out var jointVisualizer))
-                        m_JointVisualizers[jointIndex] = jointVisualizer;
                 }
 
                 var isSceneObject = meshPrefab.scene.IsValid();
@@ -589,8 +519,6 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
                     return;
 
                 var jointIndex = joint.id.ToIndex();
-                m_JointVisualizers[jointIndex].NotifyTrackingState(joint.trackingState);
-
                 if (!joint.TryGetPose(out var pose))
                     return;
 

@@ -74,7 +74,7 @@ namespace UnityEngine.XR.Hands.Samples.Gestures.DebugTools
             {
                 SelectedHandShapeName.text = m_HandShape.name;
                 handShapeOrPose = m_HandShape;
-                m_XRSelectedHandShapeDebugUI.UpdateSelectedHandshapeTextUI(m_HandShape);
+                m_XRSelectedHandShapeDebugUI.UpdateSelectedHandShapeTextUI(m_HandShape);
             }
 
             if (k_Bars.Count == 0)
@@ -113,7 +113,7 @@ namespace UnityEngine.XR.Hands.Samples.Gestures.DebugTools
         }
 
         /// <summary>
-        /// Clear the detected handshape reference inorder to stop displaying any corresponding UI
+        /// Clear the detected hand shape reference in order to stop displaying any corresponding UI
         /// </summary>
         public void ClearDetectedHandShape()
         {

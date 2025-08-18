@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.XR.Hands.Samples.GestureSample;
 using System.Collections.Generic;
+using UnityEngine.XR.Hands;
 
 public class BSLTwoHandGestureDisplay : MonoBehaviour
 {
@@ -9,8 +10,16 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
     public class BSLLetterLink
     {
         public string letter;
-        public StaticHandGesture leftGesture;   // Required
-        public StaticHandGesture rightGesture;  // Required
+        public StaticHandGesture leftGesture;
+        public StaticHandGesture rightGesture;
+
+        [Header("Distance Thresholds")]
+        public float maxDistance = 0.15f; // overall allowed distance between palms
+
+        [Header("Relative Position Requirement")]
+        public bool requireLeftAboveRight = false;
+        public bool requireRightAboveLeft = false;
+        public bool requireHandsClose = true; // default proximity requirement
     }
 
     [Header("Gesture Configuration")]
@@ -20,10 +29,30 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
     [SerializeField] private TextMeshPro outputText;
     [SerializeField] private float displayDuration = 2f;
 
+    [Header("XR Hands Reference")]
+    [SerializeField] private XRHandSubsystem handSubsystem;
+
     private float displayTimer;
 
-    // Track which gestures are currently active
     private Dictionary<StaticHandGesture, bool> gestureDetected = new Dictionary<StaticHandGesture, bool>();
+
+    private void Awake()
+    {
+        // Attempt to find and assign the hand subsystem if not manually assigned in inspector
+        if (handSubsystem == null)
+        {
+            var subsystems = new List<XRHandSubsystem>();
+            SubsystemManager.GetInstances(subsystems);
+            if (subsystems.Count > 0)
+                handSubsystem = subsystems[0];
+            else
+                Debug.LogError("XRHandSubsystem not found! Please assign one in the inspector.");
+        }
+
+        // Warn if outputText is missing
+        if (outputText == null)
+            Debug.LogError("outputText is not assigned! Assign a TextMeshPro component in the inspector.");
+    }
 
     private void OnEnable()
     {
@@ -78,6 +107,23 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
 
     private void CheckForMatchingLetter()
     {
+        if (handSubsystem == null)
+        {
+            Debug.LogWarning("CheckForMatchingLetter: handSubsystem is null.");
+            if (outputText != null) outputText.text = "";
+            return;
+        }
+
+        XRHand leftHand = handSubsystem.leftHand;
+        XRHand rightHand = handSubsystem.rightHand;
+
+        if (leftHand == null || rightHand == null)
+        {
+            Debug.LogWarning("CheckForMatchingLetter: leftHand or rightHand is null.");
+            if (outputText != null) outputText.text = "";
+            return;
+        }
+
         foreach (var link in letters)
         {
             if (link.leftGesture != null && link.rightGesture != null)
@@ -85,26 +131,62 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
                 bool leftActive = gestureDetected.ContainsKey(link.leftGesture) && gestureDetected[link.leftGesture];
                 bool rightActive = gestureDetected.ContainsKey(link.rightGesture) && gestureDetected[link.rightGesture];
 
-                if (leftActive && rightActive)
+                if (leftActive && rightActive && AreHandsWithinThreshold(leftHand, rightHand, link))
                 {
                     ShowLetter(link.letter);
-                    return; // Stop checking once we found the match
+                    return;
                 }
             }
         }
 
-        // No match found → clear the text
-        outputText.text = "";
+        if (outputText != null) outputText.text = "";
+    }
+
+    private bool AreHandsWithinThreshold(XRHand leftHand, XRHand rightHand, BSLLetterLink link)
+    {
+        if (leftHand == null || rightHand == null) return false;
+        if (!leftHand.isTracked || !rightHand.isTracked) return false;
+
+        XRHandJoint leftPalm = leftHand.GetJoint(XRHandJointID.Palm);
+        XRHandJoint rightPalm = rightHand.GetJoint(XRHandJointID.Palm);
+
+        if (!leftPalm.TryGetPose(out Pose leftPose) || !rightPalm.TryGetPose(out Pose rightPose))
+            return false;
+
+        Vector3 diff = leftPose.position - rightPose.position;
+        float distance = diff.magnitude;
+
+        // ✅ Check overall distance
+        if (distance > link.maxDistance) return false;
+
+        // ✅ Relative position checks
+        if (link.requireLeftAboveRight && !(leftPose.position.y > rightPose.position.y))
+            return false;
+
+        if (link.requireRightAboveLeft && !(rightPose.position.y > leftPose.position.y))
+            return false;
+
+        // If "hands close" is required, ensure they're within the maxDistance already checked
+        if (link.requireHandsClose && distance > link.maxDistance)
+            return false;
+
+        return true;
     }
 
     private void ShowLetter(string letter)
     {
-        outputText.text = letter;
-        displayTimer = displayDuration;
+        if (outputText != null)
+        {
+            outputText.text = letter;
+            displayTimer = displayDuration;
+        }
     }
 
     private void Update()
     {
+        if (outputText == null)
+            return;
+
         if (displayTimer > 0)
         {
             displayTimer -= Time.deltaTime;
