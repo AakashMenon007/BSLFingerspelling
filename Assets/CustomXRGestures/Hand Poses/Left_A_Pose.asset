@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740f51a1ac4b42088297287229057627, type: 3}
   m_Name: Left_A_Pose
   m_EditorClassIdentifier: 
-  m_HandShape: {fileID: 11400000, guid: 1b3dea317de08a146b0648f951fad7fe, type: 2}
+  m_HandShape: {fileID: 11400000, guid: 23faad755aa9bdb4e9d6bb03a1f7b60c, type: 2}
   m_RelativeOrientation:
     m_UserConditions:
     - m_HandAxis: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
       m_AngleTolerance: 60
       m_IgnorePositionY: 0
     - m_HandAxis: 0
-      m_AlignmentCondition: 0
+      m_AlignmentCondition: 1
       m_ReferenceDirection: 1
       m_AngleTolerance: 60
       m_IgnorePositionY: 0
@@ -31,11 +31,6 @@ MonoBehaviour:
       m_AngleTolerance: 60
       m_IgnorePositionY: 0
     - m_HandAxis: 1
-      m_AlignmentCondition: 1
-      m_ReferenceDirection: 1
-      m_AngleTolerance: 60
-      m_IgnorePositionY: 0
-    - m_HandAxis: 2
       m_AlignmentCondition: 1
       m_ReferenceDirection: 1
       m_AngleTolerance: 60

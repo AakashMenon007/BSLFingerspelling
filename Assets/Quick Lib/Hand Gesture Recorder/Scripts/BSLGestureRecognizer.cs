@@ -33,7 +33,6 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
     [SerializeField] private XRHandSubsystem handSubsystem;
 
     private float displayTimer;
-
     private Dictionary<StaticHandGesture, bool> gestureDetected = new Dictionary<StaticHandGesture, bool>();
 
     private void Awake()
@@ -124,6 +123,8 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
             return;
         }
 
+        string matchedLetters = "";
+
         foreach (var link in letters)
         {
             if (link.leftGesture != null && link.rightGesture != null)
@@ -133,13 +134,18 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
 
                 if (leftActive && rightActive && AreHandsWithinThreshold(leftHand, rightHand, link))
                 {
-                    ShowLetter(link.letter);
-                    return;
+                    matchedLetters += link.letter + " ";
                 }
             }
         }
 
-        if (outputText != null) outputText.text = "";
+        if (outputText != null)
+        {
+            if (!string.IsNullOrEmpty(matchedLetters))
+                ShowLetter(matchedLetters.Trim());
+            else
+                outputText.text = "";
+        }
     }
 
     private bool AreHandsWithinThreshold(XRHand leftHand, XRHand rightHand, BSLLetterLink link)
