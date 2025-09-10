@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using System.IO;
 using Unity.XR.CoreUtils;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Hands;
 using UnityEngine.XR.Hands.Gestures;
+
+// Editor-only API guarded
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class XRHandGestureRecorder : MonoBehaviour
 {
@@ -24,11 +28,14 @@ public class XRHandGestureRecorder : MonoBehaviour
     #region Public Variables
     [Tooltip("The key on the keyboard to record the current hand gesture.")]
     public KeyCode keycodeToRecord = KeyCode.R;
-    [Tooltip("The path to save the hand shape and hand pose.")]
+
+    [Tooltip("The path to save the hand shape and hand pose (Editor only).")]
     public string folderPathToSave = "Assets/CustomXRGestures";
+
     [Tooltip("The name of the hand gesture to create.")]
     public string handGestureName = "customHandGesture";
-    [Tooltip("Do you need an hand pose with orientation conditions ?")]
+
+    [Tooltip("Do you need a hand pose with orientation conditions?")]
     public bool UseOrientationConditions = true;
     #endregion
 
@@ -36,6 +43,7 @@ public class XRHandGestureRecorder : MonoBehaviour
     [SerializeField]
     [Tooltip("The handedness to get the finger states for.")]
     Handedness m_Handedness = Handedness.Right;
+
     private float upperTolerance = 0.25f;
     private float lowerTolerance = 0.25f;
     private Transform originTransfrom;
@@ -49,60 +57,74 @@ public class XRHandGestureRecorder : MonoBehaviour
     private static List<XRHandSubsystem> s_SubsystemsReuse = new List<XRHandSubsystem>();
     private XRHandShape handShapeCreated = null;
     private XRHandPose xRHandPose = null;
+
+    // Editor-only fields (avoid warnings + player build references)
+#if UNITY_EDITOR
     private ScriptableObject handShape_SO = null;
     private ScriptableObject handPose_SO = null;
+#endif
     #endregion
 
     #region Internal Methods
     private void Start()
     {
         m_XRFingerShapes = new XRFingerShape[(int)XRHandFingerID.Little - (int)XRHandFingerID.Thumb + 1];
-        originTransfrom = GameObject.FindObjectOfType<XROrigin>().transform;
-        headTransfrom = Camera.main.transform;
+
+        var origin = GameObject.FindObjectOfType<XROrigin>();
+        if (origin != null)
+            originTransfrom = origin.transform;
+
+        if (Camera.main != null)
+            headTransfrom = Camera.main.transform;
     }
 
     void Update()
     {
-        //Get Hands info
+        // Get Hands info
         subsystem = TryGetSubsystem();
         if (subsystem == null)
             return;
 
-        //Record Gesture
+        // Record Gesture
         if (Input.GetKeyDown(keycodeToRecord))
         {
-            //Verify paths existing - Create if doesn't exist
+            // Verify paths exist - Create if they don't
             HandlePaths();
-            //Create hand shape
+
+            // Create hand shape
             CreateHandShape();
-            //Create hand pose
-            if(UseOrientationConditions)
+
+            // Create hand pose
+            if (UseOrientationConditions)
                 CreateHandPose();
         }
     }
     #endregion
 
     #region Main Methods
-    //Get or create the folder paths to save hand shape and pose.
+    // Get or create the folder paths to save hand shape and pose.
     private void HandlePaths()
     {
+#if UNITY_EDITOR
         if (!Directory.Exists(folderPathToSave))
-        {
             Directory.CreateDirectory(folderPathToSave);
-        }
 
         handShapeFolderPath = folderPathToSave + "/Hand Shapes/";
         if (!Directory.Exists(handShapeFolderPath))
-        {
             Directory.CreateDirectory(handShapeFolderPath);
-        }
 
         handPoseFolderPath = folderPathToSave + "/Hand Poses/";
         if (!Directory.Exists(handPoseFolderPath))
-        {
             Directory.CreateDirectory(handPoseFolderPath);
-        }
+#else
+        // In player builds, we can’t write into Assets/. Use persistentDataPath if you need runtime persistence.
+        handShapeFolderPath = Application.persistentDataPath + "/HandShapes/";
+        handPoseFolderPath = Application.persistentDataPath + "/HandPoses/";
+        if (!Directory.Exists(handShapeFolderPath)) Directory.CreateDirectory(handShapeFolderPath);
+        if (!Directory.Exists(handPoseFolderPath)) Directory.CreateDirectory(handPoseFolderPath);
+#endif
     }
+
     private void CreateHandShape()
     {
         XRHandShape xRHandShape = new XRHandShape();
@@ -110,7 +132,7 @@ public class XRHandGestureRecorder : MonoBehaviour
         xRHandShape.name = handShapeName;
         xRHandShape.fingerShapeConditions = new List<XRFingerShapeCondition>();
 
-        //Get index info
+        // Get current hand
         hand = m_Handedness == Handedness.Left ? subsystem.leftHand : subsystem.rightHand;
 
         for (var fingerIndex = (int)XRHandFingerID.Thumb;
@@ -120,84 +142,95 @@ public class XRHandGestureRecorder : MonoBehaviour
             m_XRFingerShapes[fingerIndex] = hand.CalculateFingerShape(
                 (XRHandFingerID)fingerIndex, XRFingerShapeTypes.FullCurl);
 
-            UpdateFingerCondition(fingerIndex, xRHandShape);  
+            UpdateFingerCondition(fingerIndex, xRHandShape);
         }
 
-        // Asset Path
-        string assetPath = handShapeFolderPath + "/" + handShapeName+".asset";
-        // Save
+#if UNITY_EDITOR
+        // Save as asset in Editor
+        string assetPath = handShapeFolderPath + "/" + handShapeName + ".asset";
         AssetDatabase.CreateAsset(xRHandShape, assetPath);
-        /*handShape_SO = */AssetDatabase.LoadAssetAtPath<ScriptableObject>(assetPath);
+        handShape_SO = AssetDatabase.LoadAssetAtPath<ScriptableObject>(assetPath);
         AssetDatabase.Refresh();
         handShapeCreated = AssetDatabase.LoadAssetAtPath(assetPath, typeof(XRHandShape)) as XRHandShape;
 
-        Debug.Log("Hand Shape created !");
+        Debug.Log("Hand Shape created (Editor asset)!");
+#else
+        // Player build: keep in memory (not saved as .asset)
+        handShapeCreated = xRHandShape;
+        Debug.Log("Hand Shape created (runtime only, not saved as asset).");
+#endif
     }
+
     private void CreateHandPose()
     {
         xRHandPose = new XRHandPose();
         string handPoseName = handGestureName + "_Pose";
         xRHandPose.name = handPoseName;
-        //Set the handshape previously created
+
+        // Set the handshape previously created
         xRHandPose.handShape = handShapeCreated;
-        //Create all user conditions for each hand axis parameters
+
+        // Create user conditions for each hand axis
         XRHandRelativeOrientation.UserCondition userConditionsPalmOrigin = new XRHandRelativeOrientation.UserCondition();
         XRHandRelativeOrientation.UserCondition userConditionsPalmHead = new XRHandRelativeOrientation.UserCondition();
-        XRHandRelativeOrientation.UserCondition userConditionsThumbOrigin= new XRHandRelativeOrientation.UserCondition();
-        XRHandRelativeOrientation.UserCondition userConditionsThumbHead= new XRHandRelativeOrientation.UserCondition();
+        XRHandRelativeOrientation.UserCondition userConditionsThumbOrigin = new XRHandRelativeOrientation.UserCondition();
+        XRHandRelativeOrientation.UserCondition userConditionsThumbHead = new XRHandRelativeOrientation.UserCondition();
         XRHandRelativeOrientation.UserCondition userConditionsFingers = new XRHandRelativeOrientation.UserCondition();
-        //Set a different hand axis for each user condition
+
+        // Hand axis for each user condition
         userConditionsPalmOrigin.handAxis = XRHandAxis.PalmDirection;
         userConditionsPalmHead.handAxis = XRHandAxis.PalmDirection;
         userConditionsThumbOrigin.handAxis = XRHandAxis.ThumbExtendedDirection;
         userConditionsThumbHead.handAxis = XRHandAxis.ThumbExtendedDirection;
         userConditionsFingers.handAxis = XRHandAxis.FingersExtendedDirection;
-        //Set the hand reference directions
+
+        // Reference directions
         userConditionsPalmOrigin.referenceDirection = XRHandUserRelativeDirection.OriginUp;
         userConditionsPalmHead.referenceDirection = XRHandUserRelativeDirection.HandToHead;
         userConditionsThumbOrigin.referenceDirection = XRHandUserRelativeDirection.OriginUp;
         userConditionsThumbHead.referenceDirection = XRHandUserRelativeDirection.HandToHead;
         userConditionsFingers.referenceDirection = XRHandUserRelativeDirection.HandToHead;
-        //Detect the correct Alignment Condition and reference direction for each user condition
+
+        // Detect the correct Alignment Condition and reference direction
         userConditionsPalmOrigin = SetDirectionAndAligment(userConditionsPalmOrigin);
-        userConditionsPalmHead= SetDirectionAndAligment(userConditionsPalmHead);
+        userConditionsPalmHead = SetDirectionAndAligment(userConditionsPalmHead);
         userConditionsThumbOrigin = SetDirectionAndAligment(userConditionsThumbOrigin);
         userConditionsThumbHead = SetDirectionAndAligment(userConditionsThumbHead);
         userConditionsFingers = SetDirectionAndAligment(userConditionsFingers);
+
         List<XRHandRelativeOrientation.UserCondition> userConditionsList = new List<XRHandRelativeOrientation.UserCondition>();
-        if(userConditionsPalmOrigin != null)
-            userConditionsList.Add(userConditionsPalmOrigin);
-        if(userConditionsPalmHead != null)
-            userConditionsList.Add(userConditionsPalmHead);
-        if (userConditionsThumbOrigin != null)
-            userConditionsList.Add(userConditionsThumbOrigin);
-        if (userConditionsThumbHead != null)
-            userConditionsList.Add(userConditionsThumbHead);
-        if (userConditionsFingers != null)
-            userConditionsList.Add(userConditionsFingers);
-        //Set all final user onditions inside the array
+        if (userConditionsPalmOrigin != null) userConditionsList.Add(userConditionsPalmOrigin);
+        if (userConditionsPalmHead != null) userConditionsList.Add(userConditionsPalmHead);
+        if (userConditionsThumbOrigin != null) userConditionsList.Add(userConditionsThumbOrigin);
+        if (userConditionsThumbHead != null) userConditionsList.Add(userConditionsThumbHead);
+        if (userConditionsFingers != null) userConditionsList.Add(userConditionsFingers);
+
         XRHandRelativeOrientation relativeOrientation = new XRHandRelativeOrientation();
         relativeOrientation.userConditions = userConditionsList.ToArray();
         xRHandPose.relativeOrientation = relativeOrientation;
-        
-        // Asset Path
+
+#if UNITY_EDITOR
+        // Save as asset in Editor
         string assetPath = handPoseFolderPath + "/" + handPoseName + ".asset";
-        // Save
         AssetDatabase.CreateAsset(xRHandPose, assetPath);
-        /*handPose_SO = */AssetDatabase.LoadAssetAtPath<ScriptableObject>(assetPath);
+        handPose_SO = AssetDatabase.LoadAssetAtPath<ScriptableObject>(assetPath);
         AssetDatabase.Refresh();
-        Debug.Log("Hand Pose created !");
+        Debug.Log("Hand Pose created (Editor asset)!");
+#else
+        // Player build: keep in memory (not saved as .asset)
+        Debug.Log("Hand Pose created (runtime only, not saved as asset).");
+#endif
     }
     #endregion
 
     #region Secondary private methods
-    //Set the fingers states/curls inside the handshape
+    // Set the fingers states/curls inside the handshape
     private void UpdateFingerCondition(int fingerIndex, XRHandShape handShape)
     {
         XRFingerShapeCondition fingerCondition = new XRFingerShapeCondition();
         XRFingerShape shapes = m_XRFingerShapes[fingerIndex];
 
-        //FingerID
+        // FingerID
         if (fingerIndex == (int)XRHandFingerID.Thumb)
             fingerCondition.fingerID = UnityEngine.XR.Hands.XRHandFingerID.Thumb;
         else if (fingerIndex == (int)XRHandFingerID.Index)
@@ -209,14 +242,9 @@ public class XRHandGestureRecorder : MonoBehaviour
         else if (fingerIndex == (int)XRHandFingerID.Little)
             fingerCondition.fingerID = UnityEngine.XR.Hands.XRHandFingerID.Little;
 
-
-        //Targets Values
+        // Targets Values
         int nbTargets = 0;
         float fullCurl = -1;
-        //float baseCurl = -1;
-        //float tipCurl = -1;
-        //float pinch = -1;
-        //float spread = -1;
         if (shapes.TryGetFullCurl(out fullCurl))
             nbTargets++;
 
@@ -231,7 +259,8 @@ public class XRHandGestureRecorder : MonoBehaviour
         }
         handShape.fingerShapeConditions.Add(fingerCondition);
     }
-    //Update direction and aligment of hand pose for palm, thumb and fingers
+
+    // Update direction and alignment of hand pose for palm, thumb and fingers
     private XRHandRelativeOrientation.UserCondition SetDirectionAndAligment(XRHandRelativeOrientation.UserCondition userCondition)
     {
         List<JointToTransformReference> jointsTransforms = new List<JointToTransformReference>();
@@ -240,7 +269,7 @@ public class XRHandGestureRecorder : MonoBehaviour
         else
             jointsTransforms = GameObject.Find("Right Hand Tracking").GetComponent<XRHandSkeletonDriver>().jointTransformReferences;
 
-        if(jointsTransforms == null)
+        if (jointsTransforms == null)
         {
             Debug.LogWarning("Can't find Hands Skeleton Drivers");
             return userCondition;
@@ -251,16 +280,17 @@ public class XRHandGestureRecorder : MonoBehaviour
             case XRHandAxis.PalmDirection:
                 XRHandJoint palmJoint = hand.GetJoint(XRHandJointID.Palm);
                 Transform palmTransfrom = jointsTransforms[palmJoint.id.ToIndex()].jointTransform;
-                
+
                 if (userCondition.referenceDirection == XRHandUserRelativeDirection.OriginUp)
                 {
                     userCondition.alignmentCondition = GetAlignmentCondition(palmTransfrom, originTransfrom, userCondition.handAxis, userCondition.referenceDirection, angleTolerance);
                 }
-                else if(userCondition.referenceDirection == XRHandUserRelativeDirection.HandToHead)
+                else if (userCondition.referenceDirection == XRHandUserRelativeDirection.HandToHead)
                 {
                     userCondition.alignmentCondition = GetAlignmentCondition(palmTransfrom, headTransfrom, userCondition.handAxis, userCondition.referenceDirection, angleTolerance);
                 }
                 break;
+
             case XRHandAxis.ThumbExtendedDirection:
                 XRHandJoint thumbJoint = hand.GetJoint(XRHandJointID.ThumbTip);
                 Transform thumbTransfrom = jointsTransforms[thumbJoint.id.ToIndex()].jointTransform;
@@ -274,15 +304,15 @@ public class XRHandGestureRecorder : MonoBehaviour
                     userCondition.alignmentCondition = GetAlignmentCondition(thumbTransfrom, originTransfrom, userCondition.handAxis, userCondition.referenceDirection, angleTolerance);
                 }
                 break;
+
             case XRHandAxis.FingersExtendedDirection:
                 float allDesiredCurls = 0;
-                for (int i = 1; i < handShapeCreated.fingerShapeConditions.Count; i++) //i start from 1 to exlude the thumb
+                for (int i = 1; i < handShapeCreated.fingerShapeConditions.Count; i++) // start at 1 to exclude thumb
                 {
                     allDesiredCurls += handShapeCreated.fingerShapeConditions[i].targets[0].desired;
                 }
-                if (allDesiredCurls > 3f || allDesiredCurls < 0.5f) //Most all curled or extended
+                if (allDesiredCurls > 3f || allDesiredCurls < 0.5f) // most all curled or extended
                 {
-                    //reference direction origin up
                     XRHandJoint indexJoint = hand.GetJoint(XRHandJointID.IndexTip);
                     XRHandJoint middleJoint = hand.GetJoint(XRHandJointID.MiddleTip);
                     XRHandJoint ringJoint = hand.GetJoint(XRHandJointID.RingTip);
@@ -294,7 +324,6 @@ public class XRHandGestureRecorder : MonoBehaviour
 
                     XRHandJoint palmJointFingers = hand.GetJoint(XRHandJointID.Palm);
                     Transform palmTransfromFingers = jointsTransforms[palmJointFingers.id.ToIndex()].jointTransform;
-
 
                     GameObject tempTransformGameObject = new GameObject();
                     Transform globalFingersTransform = tempTransformGameObject.transform;
@@ -317,19 +346,21 @@ public class XRHandGestureRecorder : MonoBehaviour
                 else
                     userCondition = null;
                 break;
+
             default:
                 break;
         }
-        if(userCondition!=null)
+        if (userCondition != null)
             userCondition.angleTolerance = angleTolerance;
 
         return userCondition;
     }
+
     private HandBoneOrientation PalmOrientation(Transform palmTransform, bool fromOrigin)
     {
         HandBoneOrientation orientation = HandBoneOrientation.None;
         Vector3 referencePosition = Vector3.zero;
-        if(fromOrigin)
+        if (fromOrigin)
             referencePosition = originTransfrom.position;
         else
             referencePosition = headTransfrom.position;
@@ -377,6 +408,7 @@ public class XRHandGestureRecorder : MonoBehaviour
 
         return orientation;
     }
+
     private HandBoneOrientation ThumbOrientationFromHead(Transform ThumbTransform)
     {
         HandBoneOrientation orientation = HandBoneOrientation.None;
@@ -392,8 +424,8 @@ public class XRHandGestureRecorder : MonoBehaviour
             thumbDirection = thumbPosition + (ThumbTransform.right * magnitudeIncrease);
         else
             thumbDirection = thumbPosition - ThumbTransform.right * (magnitudeIncrease);
-        
-        Vector3 thumbPositionScaled= (thumbDirection * magnitudeIncrease);
+
+        Vector3 thumbPositionScaled = (thumbDirection * magnitudeIncrease);
         Vector3 directionThumbToHead = thumbPositionScaled - headPosition;
 
         Vector3 positiveDirection = directionThumbToHead;
@@ -428,10 +460,11 @@ public class XRHandGestureRecorder : MonoBehaviour
 
         return orientation;
     }
+
     private HandBoneOrientation FingersOrientationFromHead(Transform globalFingersTransform)
     {
         HandBoneOrientation orientation = HandBoneOrientation.None;
-        //Normalize from palm
+        // Normalize from palm
         List<JointToTransformReference> jointsTransforms = new List<JointToTransformReference>();
         if (m_Handedness == Handedness.Left)
             jointsTransforms = GameObject.Find("Left Hand Tracking").GetComponent<XRHandSkeletonDriver>().jointTransformReferences;
@@ -489,7 +522,8 @@ public class XRHandGestureRecorder : MonoBehaviour
         return orientation;
 
     }
-    //Set the alignment by the orientation of the bone from an axis
+
+    // Set the alignment by the orientation of the bone from an axis
     private XRHandAlignmentCondition GetAlignmentCondition(Transform jointTransform, Transform otherTransform, XRHandAxis handAxis, XRHandUserRelativeDirection refDirection, float threshold = 60f)
     {
         XRHandAlignmentCondition alignmentCondition = XRHandAlignmentCondition.OppositeTo;
@@ -497,7 +531,7 @@ public class XRHandGestureRecorder : MonoBehaviour
         float angle = angleTolerance / 360;
         Vector3 jointDirection = Vector3.zero;
         Vector3 otherDirection = Vector3.zero;
-        //JointDirection by the hand axis
+
         switch (handAxis)
         {
             case XRHandAxis.PalmDirection:
@@ -548,12 +582,13 @@ public class XRHandGestureRecorder : MonoBehaviour
                         break;
                 }
                 break;
+
             case XRHandAxis.ThumbExtendedDirection:
                 HandBoneOrientation thumbOrientation = ThumbOrientationFromHead(jointTransform);
                 switch (thumbOrientation)
                 {
                     case HandBoneOrientation.Front:
-                        if(refDirection == XRHandUserRelativeDirection.HandToHead)
+                        if (refDirection == XRHandUserRelativeDirection.HandToHead)
                             alignmentCondition = XRHandAlignmentCondition.AlignsWith;
                         else if (refDirection == XRHandUserRelativeDirection.OriginUp)
                             alignmentCondition = XRHandAlignmentCondition.PerpendicularTo;
@@ -561,7 +596,6 @@ public class XRHandGestureRecorder : MonoBehaviour
                     case HandBoneOrientation.Back:
                         if (refDirection == XRHandUserRelativeDirection.HandToHead)
                             alignmentCondition = XRHandAlignmentCondition.PerpendicularTo;
-                        //alignmentCondition = XRHandAlignmentCondition.OppositeTo;
                         else if (refDirection == XRHandUserRelativeDirection.OriginUp)
                             alignmentCondition = XRHandAlignmentCondition.PerpendicularTo;
                         break;
@@ -593,6 +627,7 @@ public class XRHandGestureRecorder : MonoBehaviour
                         break;
                 }
                 break;
+
             case XRHandAxis.FingersExtendedDirection:
                 HandBoneOrientation fingersOrientation = FingersOrientationFromHead(jointTransform);
                 switch (fingersOrientation)
@@ -619,6 +654,7 @@ public class XRHandGestureRecorder : MonoBehaviour
                         break;
                 }
                 break;
+
             default:
                 break;
         }
@@ -635,109 +671,7 @@ public class XRHandGestureRecorder : MonoBehaviour
     #endregion
 
     #region Debug directly in the scene
-    //public void AddNewHandGestureInDebugScene()
-    //{
-    //    GameObject handGestureDetection = null;
-    //    if (m_Handedness == Handedness.Left)
-    //        handGestureDetection = GameObject.Find("Left Custom Gesture");
-    //    else
-    //        handGestureDetection = GameObject.Find("Right Custom Gesture");
-
-    //    GetHandGesturesScriptableObjects();
-
-    //    if (handShape_SO != null)
-    //    {
-    //        StaticHandGesture staticHandGesture = handGestureDetection.GetComponent<StaticHandGesture>();
-    //        if (handPose_SO != null)
-    //            staticHandGesture.handShapeOrPose = handPose_SO;
-    //        else
-    //            staticHandGesture.handShapeOrPose = handShape_SO;
-
-    //        UnityEvent gesturePerformedAction = staticHandGesture.gesturePerformed;
-
-    //        gesturePerformedAction.RemoveAllListeners();
-
-    //        gesturePerformedAction.AddListener(UpdateSelectedHandshapeTextUI);
-    //        gesturePerformedAction.AddListener(UpdateHandshapeDebugUI);
-    //        Debug.Log("The gesture is added in the scene");
-
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Impossible to add the gesture in the scene...");
-    //    }
-
-    //}
-    //private void GetHandGesturesScriptableObjects()
-    //{
-    //    string handPosePath = folderPathToSave;
-    //    string handShapePath = folderPathToSave;
-
-    //    if (handPosePath.EndsWith("/") || handPosePath.EndsWith("\\"))
-    //    {
-    //        handPosePath = handPosePath.Substring(handPosePath.Length - 2, 1);
-    //        handShapePath = handPosePath.Substring(handPosePath.Length - 2, 1);
-
-    //    }
-
-    //    handShapePath += "/Hand Shapes/";
-    //    handPosePath += "/Hand Poses/";
-
-    //    if (handPosePath.StartsWith("/") || handPosePath.StartsWith("\\"))
-    //    {
-    //        handPosePath += handGestureName.Substring(0, 1);
-    //        handShapePath += handGestureName.Substring(0, 1);
-    //    }
-    //    else
-    //    {
-    //        handPosePath += handGestureName + "_Pose.asset";
-    //        handShapePath += handGestureName + "_Shape.asset";
-    //    }
-
-    //    if (!File.Exists(handShapePath))
-    //    {
-    //        Debug.LogError("Can't find the hand shape scriptable object at : " + handPosePath + "...");
-    //    }
-
-    //    if (!File.Exists(handPosePath))
-    //    {
-    //        Debug.LogError("Can't find the hand pose scriptable object at : " + handPosePath + "...");
-    //    }
-
-    //    handShape_SO = AssetDatabase.LoadAssetAtPath<ScriptableObject>(handShapePath);
-    //    handPose_SO = AssetDatabase.LoadAssetAtPath<ScriptableObject>(handPosePath);
-    //}
-    //private void UpdateHandshapeDebugUI()
-    //{
-    //    GameObject handShapeDebugUI = null;
-    //    if (m_Handedness == Handedness.Left)
-    //        handShapeDebugUI = GameObject.Find("Left Hand Shape Debug UI");
-    //    else
-    //        handShapeDebugUI = GameObject.Find("Right Hand Shape Debug UI");
-
-    //    XRHandShapeDebugUI xrHandShapeDebugUI = handShapeDebugUI.GetComponent<XRHandShapeDebugUI>();
-
-    //    if (UseOrientationConditions)
-    //        xrHandShapeDebugUI.handShapeOrPose = handPose_SO;
-    //    else
-    //        xrHandShapeDebugUI.handShapeOrPose = handShape_SO;
-    //}
-    //private void UpdateSelectedHandshapeTextUI()
-    //{
-    //    GameObject handShapeDebugUI = null;
-    //    if (m_Handedness == Handedness.Left)
-    //        handShapeDebugUI = GameObject.Find("Left Hand Shape Debug UI");
-    //    else
-    //        handShapeDebugUI = GameObject.Find("Right Hand Shape Debug UI");
-
-    //    XRHandShapeDebugUI xrHandShapeDebugUI = handShapeDebugUI.GetComponent<XRHandShapeDebugUI>();
-
-    //    XRSelectedHandShapeDebugUI xrSelectedHandShapeDebugUI = xrHandShapeDebugUI.GetComponentInChildren<XRSelectedHandShapeDebugUI>();
-
-    //    if (UseOrientationConditions)
-    //        xrSelectedHandShapeDebugUI.UpdateSelectedHandshapeTextUI(handPose_SO);
-    //    else
-    //        xrSelectedHandShapeDebugUI.UpdateSelectedHandshapeTextUI(handShape_SO);
-    //}
+    // (Leaving your debug methods commented as-is. If you re-enable them,
+    // wrap any AssetDatabase usage in #if UNITY_EDITOR as shown above.)
     #endregion
 }

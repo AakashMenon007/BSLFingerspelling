@@ -14,7 +14,8 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
         public StaticHandGesture rightGesture;
 
         [Header("Distance Thresholds")]
-        public float maxDistance = 0.15f; // overall allowed distance between palms
+        public float maxDistance = 0.15f; // allowed distance between palms
+        public float tolerance = 0.05f;   // extra tolerance distance
 
         [Header("Relative Position Requirement")]
         public bool requireLeftAboveRight = false;
@@ -37,7 +38,6 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
 
     private void Awake()
     {
-        // Attempt to find and assign the hand subsystem if not manually assigned in inspector
         if (handSubsystem == null)
         {
             var subsystems = new List<XRHandSubsystem>();
@@ -48,7 +48,6 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
                 Debug.LogError("XRHandSubsystem not found! Please assign one in the inspector.");
         }
 
-        // Warn if outputText is missing
         if (outputText == null)
             Debug.LogError("outputText is not assigned! Assign a TextMeshPro component in the inspector.");
     }
@@ -108,7 +107,6 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
     {
         if (handSubsystem == null)
         {
-            Debug.LogWarning("CheckForMatchingLetter: handSubsystem is null.");
             if (outputText != null) outputText.text = "";
             return;
         }
@@ -118,7 +116,6 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
 
         if (leftHand == null || rightHand == null)
         {
-            Debug.LogWarning("CheckForMatchingLetter: leftHand or rightHand is null.");
             if (outputText != null) outputText.text = "";
             return;
         }
@@ -150,7 +147,6 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
 
     private bool AreHandsWithinThreshold(XRHand leftHand, XRHand rightHand, BSLLetterLink link)
     {
-        if (leftHand == null || rightHand == null) return false;
         if (!leftHand.isTracked || !rightHand.isTracked) return false;
 
         XRHandJoint leftPalm = leftHand.GetJoint(XRHandJointID.Palm);
@@ -162,18 +158,14 @@ public class BSLTwoHandGestureDisplay : MonoBehaviour
         Vector3 diff = leftPose.position - rightPose.position;
         float distance = diff.magnitude;
 
-        // ✅ Check overall distance
-        if (distance > link.maxDistance) return false;
+        // ✅ Apply tolerance
+        float effectiveMax = link.maxDistance + link.tolerance;
+        if (distance > effectiveMax) return false;
 
-        // ✅ Relative position checks
-        if (link.requireLeftAboveRight && !(leftPose.position.y > rightPose.position.y))
+        if (link.requireLeftAboveRight && !(leftPose.position.y > rightPose.position.y - link.tolerance))
             return false;
 
-        if (link.requireRightAboveLeft && !(rightPose.position.y > leftPose.position.y))
-            return false;
-
-        // If "hands close" is required, ensure they're within the maxDistance already checked
-        if (link.requireHandsClose && distance > link.maxDistance)
+        if (link.requireRightAboveLeft && !(rightPose.position.y > leftPose.position.y - link.tolerance))
             return false;
 
         return true;

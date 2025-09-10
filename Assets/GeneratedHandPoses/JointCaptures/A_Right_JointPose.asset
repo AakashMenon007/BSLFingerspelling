@@ -1,0 +1,871 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2de4623d2bd3947b4ea477ae8cb352, type: 3}
+  m_Name: A_Right_JointPose
+  m_EditorClassIdentifier: 
+  gestureName: A
+  side: 1
+  sourcePrefabGuid: 
+  sourceRootName: XR Origin
+  bones:
+  - bonePath: Camera Offset
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Main Camera
+    localRotation: {x: -0.02693516, y: 0.030084053, z: 0.04469438, w: -0.9981843}
+  - bonePath: Camera Offset/Hand Visualizer
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Wrist
+    localRotation: {x: 0.27322167, y: -0.16573018, z: -0.18128364, w: -0.9300644}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Wrist/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Wrist/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Wrist/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Wrist/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Wrist/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexMetacarpal
+    localRotation: {x: 0.27322167, y: -0.16573018, z: -0.18128364, w: -0.9300644}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexProximal
+    localRotation: {x: 0.131679, y: -0.1650537, z: -0.12924224, w: -0.9688728}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexIntermediate
+    localRotation: {x: -0.10221961, y: -0.19308303, z: -0.112821616, w: -0.96929944}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexDistal
+    localRotation: {x: -0.19336677, y: -0.17675969, z: -0.109084815, w: -0.9588878}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexTip
+    localRotation: {x: -0.19336677, y: -0.17675969, z: -0.109084815, w: -0.9588878}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/IndexTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleMetacarpal
+    localRotation: {x: 0.18770489, y: -0.08979214, z: -0.40335682, w: -0.891071}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleProximal
+    localRotation: {x: 0.15725265, y: -0.09662026, z: -0.3153193, w: -0.9308651}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleIntermediate
+    localRotation: {x: -0.15946817, y: -0.17487219, z: -0.33238748, w: -0.9129667}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleDistal
+    localRotation: {x: -0.26403838, y: -0.26228753, z: -0.312176, w: -0.8740911}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleTip
+    localRotation: {x: -0.26403838, y: -0.26228753, z: -0.312176, w: -0.8740911}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/LittleTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleMetacarpal
+    localRotation: {x: 0.27322167, y: -0.16573018, z: -0.18128364, w: -0.9300644}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleProximal
+    localRotation: {x: -0.04908644, y: -0.18807691, z: -0.1439369, w: -0.9703092}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleIntermediate
+    localRotation: {x: -0.2856623, y: -0.21530566, z: -0.106000796, w: -0.9277954}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleDistal
+    localRotation: {x: -0.38535535, y: -0.21261692, z: -0.13455924, w: -0.8878002}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleTip
+    localRotation: {x: -0.38535535, y: -0.21261692, z: -0.13455924, w: -0.8878002}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/MiddleTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingMetacarpal
+    localRotation: {x: 0.27322167, y: -0.16573018, z: -0.18128364, w: -0.9300644}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingProximal
+    localRotation: {x: 0.05876341, y: -0.14622241, z: -0.22371253, w: -0.9618309}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingIntermediate
+    localRotation: {x: -0.19837072, y: -0.20727655, z: -0.21477938, w: -0.93357134}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingDistal
+    localRotation: {x: -0.33047503, y: -0.26212144, z: -0.19824694, w: -0.8847468}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingTip
+    localRotation: {x: -0.33047503, y: -0.26212144, z: -0.19824694, w: -0.8847468}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/RingTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbMetacarpal
+    localRotation: {x: 0.40945297, y: -0.2931816, z: 0.51848316, w: -0.691063}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbProximal
+    localRotation: {x: 0.2509546, y: -0.17147766, z: 0.48991513, w: -0.8170682}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbDistal
+    localRotation: {x: 0.24769789, y: -0.20873943, z: 0.56730795, w: -0.757123}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbTip
+    localRotation: {x: 0.24769789, y: -0.20873943, z: 0.56730795, w: -0.757123}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/ThumbTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Palm
+    localRotation: {x: 0.27322167, y: -0.16573018, z: -0.18128364, w: -0.9300644}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Palm/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Palm/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Palm/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Palm/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/LeftHandDebugDrawJoints/Palm/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Wrist
+    localRotation: {x: -0.26686752, y: -0.5897099, z: -0.49599665, w: 0.57880163}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Wrist/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Wrist/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Wrist/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Wrist/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Wrist/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexMetacarpal
+    localRotation: {x: -0.26686752, y: -0.5897099, z: -0.49599665, w: 0.57880163}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexProximal
+    localRotation: {x: -0.09941006, y: -0.68133605, z: -0.29747677, w: 0.66136706}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexIntermediate
+    localRotation: {x: -0.06809801, y: -0.68431556, z: -0.30319712, w: 0.6596563}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexDistal
+    localRotation: {x: -0.089486346, y: -0.64721864, z: -0.3572293, w: 0.6674486}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexTip
+    localRotation: {x: -0.089486346, y: -0.64721864, z: -0.3572293, w: 0.6674486}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/IndexTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleMetacarpal
+    localRotation: {x: -0.05603925, y: -0.5539668, z: -0.6266325, w: 0.54526335}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleProximal
+    localRotation: {x: 0.3206362, y: -0.810692, z: -0.035630554, w: 0.48857075}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleIntermediate
+    localRotation: {x: 0.6236113, y: -0.61931777, z: 0.44090265, w: 0.18209729}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleDistal
+    localRotation: {x: 0.64244884, y: -0.30386314, z: 0.6746232, w: -0.1995254}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleTip
+    localRotation: {x: 0.64244884, y: -0.30386314, z: 0.6746232, w: -0.1995254}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/LittleTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleMetacarpal
+    localRotation: {x: -0.26686752, y: -0.5897099, z: -0.49599665, w: 0.57880163}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleProximal
+    localRotation: {x: 0.20919238, y: -0.7378641, z: -0.09436743, w: 0.63473624}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleIntermediate
+    localRotation: {x: 0.62704474, y: -0.5517434, z: 0.4910831, w: 0.24745011}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleDistal
+    localRotation: {x: 0.7139457, y: -0.10996332, z: 0.6788371, w: -0.13179447}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleTip
+    localRotation: {x: 0.7139457, y: -0.10996332, z: 0.6788371, w: -0.13179447}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/MiddleTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingMetacarpal
+    localRotation: {x: -0.26686752, y: -0.5897099, z: -0.49599665, w: 0.57880163}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingProximal
+    localRotation: {x: 0.28748104, y: -0.7584888, z: -0.05296907, w: 0.58244634}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingIntermediate
+    localRotation: {x: 0.644849, y: -0.5737067, z: 0.46802303, w: 0.18969662}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingIntermediate/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingIntermediate/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingIntermediate/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingIntermediate/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingIntermediate/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingDistal
+    localRotation: {x: 0.6689598, y: -0.19545937, z: 0.6863561, w: -0.20785496}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingTip
+    localRotation: {x: 0.6689598, y: -0.19545937, z: 0.6863561, w: -0.20785496}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/RingTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbMetacarpal
+    localRotation: {x: -0.70743227, y: -0.49193546, z: 0.25386336, w: 0.43942294}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbMetacarpal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbMetacarpal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbMetacarpal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbMetacarpal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbMetacarpal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbProximal
+    localRotation: {x: -0.41462246, y: -0.3736247, z: 0.38820508, w: 0.73334146}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbProximal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbProximal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbProximal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbProximal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbProximal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbDistal
+    localRotation: {x: -0.07887854, y: -0.15961769, z: 0.5647847, w: 0.8058032}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbDistal/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbDistal/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbDistal/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbDistal/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbDistal/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbTip
+    localRotation: {x: -0.07887854, y: -0.15961769, z: 0.5647847, w: 0.8058032}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbTip/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbTip/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbTip/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbTip/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/ThumbTip/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Palm
+    localRotation: {x: -0.26686752, y: -0.5897099, z: -0.49599665, w: 0.57880163}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Palm/Cube
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Palm/Axis
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Palm/Axis/X
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Palm/Axis/Y
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Hand Visualizer/RightHandDebugDrawJoints/Palm/Axis/Z
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist
+    localRotation: {x: 0.27322167, y: -0.16573018, z: -0.18128364, w: -0.9300644}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal
+    localRotation: {x: 0.1507493, y: -0.018501433, z: -0.032164104, w: 0.98787546}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/L_IndexIntermediate
+    localRotation: {x: 0.23300704, y: -0.0009808993, z: 0.026332067, w: 0.97211796}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/L_IndexIntermediate/L_IndexDistal
+    localRotation: {x: 0.08829304, y: -0.024477242, z: 0.01682011, w: 0.99565166}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/L_IndexIntermediate/L_IndexDistal/L_IndexTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/L_IndexIntermediate/L_IndexDistal/L_IndexTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.23868185, y: -0.020685993, z: 0.031530682, w: 0.97036535}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/L_IndexIntermediate/L_IndexDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.23868185, y: -0.020685993, z: 0.031530682, w: 0.97036535}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/L_IndexIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.23515648, y: -0.04196376, z: 0.053747505, w: 0.96956265}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/L_IndexProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.36073405, y: -0.046080064, z: 0.074152365, w: 0.92857367}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_IndexMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal
+    localRotation: {x: 0.018311728, y: -0.14034289, z: 0.207036, w: 0.96804166}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal
+    localRotation: {x: 0.045263886, y: 0.0067531057, z: -0.09048283, w: 0.9948459}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/L_LittleIntermediate
+    localRotation: {x: 0.31503502, y: -0.027980875, z: 0.06443885, w: 0.94647646}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/L_LittleIntermediate/L_LittleDistal
+    localRotation: {x: 0.13425872, y: 0.048624624, z: -0.001184199, w: 0.98975194}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/L_LittleIntermediate/L_LittleDistal/L_LittleTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/L_LittleIntermediate/L_LittleDistal/L_LittleTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.07467479, y: -0.044408433, z: -0.27934006, w: 0.9562535}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/L_LittleIntermediate/L_LittleDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.07467479, y: -0.044408433, z: -0.27934006, w: 0.9562535}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/L_LittleIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.17050222, y: 0.03461139, z: -0.28696072, w: 0.942011}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/L_LittleProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.50291216, y: 0.12310472, z: -0.18623729, w: 0.83500916}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_LittleMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.4681438, y: 0.018017225, z: -0.24946636, w: 0.84751594}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal
+    localRotation: {x: 0.3210036, y: -0.034111127, z: 0.01749122, w: 0.9463019}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/L_MiddleIntermediate
+    localRotation: {x: 0.24269271, y: -0.0014979828, z: 0.012467423, w: 0.970022}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/L_MiddleIntermediate/L_MiddleDistal
+    localRotation: {x: 0.09748615, y: 0.0037071211, z: 0.052968487, w: 0.9938194}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/L_MiddleIntermediate/L_MiddleDistal/L_MiddleTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/L_MiddleIntermediate/L_MiddleDistal/L_MiddleTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.15844993, y: -0.002245023, z: -0.067668185, w: 0.985043}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/L_MiddleIntermediate/L_MiddleDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.15844993, y: -0.002245023, z: -0.067668185, w: 0.985043}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/L_MiddleIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.12670718, y: 0.000076806056, z: -0.027349973, w: 0.99156314}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/L_MiddleProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.3266295, y: 0.00527077, z: -0.014301553, w: 0.9450296}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_MiddleMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_Palm
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_Palm/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal
+    localRotation: {x: 0.19757108, y: -0.07387842, z: 0.0639151, w: 0.9754089}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/L_RingIntermediate
+    localRotation: {x: 0.26062372, y: 0.0058567435, z: 0.038916357, w: 0.96463805}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/L_RingIntermediate/L_RingDistal
+    localRotation: {x: 0.14822046, y: 0.029668953, z: 0.011554808, w: 0.9884417}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/L_RingIntermediate/L_RingDistal/L_RingTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/L_RingIntermediate/L_RingDistal/L_RingTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.049571525, y: -0.049007505, z: -0.13721907, w: 0.98808503}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/L_RingIntermediate/L_RingDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.049542457, y: -0.049011543, z: -0.13721764, w: 0.98808646}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/L_RingIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.13635236, y: -0.006527373, z: -0.13367677, w: 0.9815783}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/L_RingProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.425347, y: 0.046671055, z: -0.09147014, w: 0.8991857}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_RingMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal
+    localRotation: {x: -0.0529269, y: 0.37403572, z: -0.59525627, w: 0.70920104}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/L_ThumbProximal
+    localRotation: {x: 0.21585143, y: -0.05056604, z: 0.08171067, w: 0.97168654}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/L_ThumbProximal/L_ThumbDistal
+    localRotation: {x: -0.017366553, y: 0.06174227, z: -0.0826938, w: 0.9945089}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/L_ThumbProximal/L_ThumbDistal/L_ThumbTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/L_ThumbProximal/L_ThumbDistal/L_ThumbTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.18051994, y: 0.1509043, z: 0.674853, w: 0.6994383}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/L_ThumbProximal/L_ThumbDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.18051994, y: 0.1509043, z: 0.674853, w: 0.6994383}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/L_ThumbProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.30367178, y: 0.09420371, z: 0.6200613, w: 0.71724}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/L_ThumbMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.41386825, y: -0.05622998, z: 0.696447, w: 0.5835348}
+  - bonePath: Camera Offset/Left Hand Tracking/L_Wrist/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Left Hand Tracking/LeftHand
+    localRotation: {x: 0, y: -0, z: -0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist
+    localRotation: {x: -0.26686752, y: -0.5897099, z: -0.49599665, w: 0.57880163}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal
+    localRotation: {x: 0.28147408, y: 0.025736086, z: 0.032652456, w: 0.95866776}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/R_IndexIntermediate
+    localRotation: {x: 0.017527534, y: 0.006747079, z: -0.025922377, w: 0.9994875}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/R_IndexIntermediate/R_IndexDistal
+    localRotation: {x: -0.06180104, y: 0.026998201, z: -0.016117474, w: 0.9975931}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/R_IndexIntermediate/R_IndexDistal/R_IndexTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/R_IndexIntermediate/R_IndexDistal/R_IndexTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.23868185, y: 0.020685993, z: -0.031530682, w: 0.97036535}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/R_IndexIntermediate/R_IndexDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.23868185, y: 0.020685993, z: -0.031530682, w: 0.97036535}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/R_IndexIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.23515648, y: 0.04196376, z: -0.053747505, w: 0.96956265}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/R_IndexProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.36073405, y: 0.046080064, z: -0.074152365, w: 0.92857367}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_IndexMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal
+    localRotation: {x: 0.0183118, y: 0.14034288, z: -0.20703594, w: 0.96804166}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal
+    localRotation: {x: 0.69047815, y: 0.031529147, z: 0.063673876, w: 0.7198552}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/R_LittleIntermediate
+    localRotation: {x: 0.6257941, y: 0.008633255, z: -0.085080616, w: 0.775286}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/R_LittleIntermediate/R_LittleDistal
+    localRotation: {x: 0.5252465, y: -0.041457046, z: 0.002430826, w: 0.8499362}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/R_LittleIntermediate/R_LittleDistal/R_LittleTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/R_LittleIntermediate/R_LittleDistal/R_LittleTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.07467479, y: 0.044408433, z: 0.27934006, w: 0.9562535}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/R_LittleIntermediate/R_LittleDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.07467479, y: 0.044408433, z: 0.27934006, w: 0.9562535}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/R_LittleIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.17050222, y: -0.03461139, z: 0.28696072, w: 0.942011}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/R_LittleProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.50291216, y: -0.12310472, z: 0.18623729, w: 0.83500916}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_LittleMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.4681438, y: -0.018017225, z: 0.24946636, w: 0.84751594}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal
+    localRotation: {x: 0.6008001, y: 0.076175615, z: -0.060067743, w: 0.79349136}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/R_MiddleIntermediate
+    localRotation: {x: 0.7606625, y: -0.0057235206, z: -0.012193827, w: 0.64900786}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/R_MiddleIntermediate/R_MiddleDistal
+    localRotation: {x: 0.5798497, y: -0.024872538, z: -0.09226253, w: 0.80910033}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/R_MiddleIntermediate/R_MiddleDistal/R_MiddleTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/R_MiddleIntermediate/R_MiddleDistal/R_MiddleTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.15844993, y: 0.002245023, z: 0.067668185, w: 0.985043}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/R_MiddleIntermediate/R_MiddleDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.15844993, y: 0.002245023, z: 0.067668185, w: 0.985043}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/R_MiddleIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.12670718, y: -0.000076806056, z: 0.027349973, w: 0.99156314}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/R_MiddleProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.3266295, y: -0.00527077, z: 0.014301553, w: 0.9450296}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_MiddleMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_Palm
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_Palm/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal
+    localRotation: {x: 0.66680205, y: 0.06118516, z: -0.11371356, w: 0.73396236}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/R_RingIntermediate
+    localRotation: {x: 0.7064347, y: -0.02156578, z: -0.041534573, w: 0.70622927}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/R_RingIntermediate/R_RingDistal
+    localRotation: {x: 0.56322217, y: -0.026818277, z: -0.030264588, w: 0.82531554}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/R_RingIntermediate/R_RingDistal/R_RingTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/R_RingIntermediate/R_RingDistal/R_RingTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.04957155, y: 0.049007505, z: 0.13721906, w: 0.988085}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/R_RingIntermediate/R_RingDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.04957155, y: 0.049007505, z: 0.13721906, w: 0.988085}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/R_RingIntermediate/VelocityPrefab(Clone)
+    localRotation: {x: 0.13635236, y: 0.006527373, z: 0.13367677, w: 0.9815783}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/R_RingProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.425347, y: -0.046671055, z: 0.09147014, w: 0.8991857}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_RingMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal
+    localRotation: {x: 0.101508886, y: -0.44423294, z: 0.65078706, w: 0.6073133}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/R_ThumbProximal
+    localRotation: {x: 0.43271703, y: 0.02720606, z: -0.07592895, w: 0.89791465}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/R_ThumbProximal/R_ThumbDistal
+    localRotation: {x: 0.4253123, y: -0.019537667, z: 0.064652994, w: 0.902523}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/R_ThumbProximal/R_ThumbDistal/R_ThumbTip
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/R_ThumbProximal/R_ThumbDistal/R_ThumbTip/VelocityPrefab(Clone)
+    localRotation: {x: 0.18120462, y: -0.14952463, z: -0.6777836, w: 0.6967186}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/R_ThumbProximal/R_ThumbDistal/VelocityPrefab(Clone)
+    localRotation: {x: 0.18120462, y: -0.14952463, z: -0.6777836, w: 0.6967186}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/R_ThumbProximal/VelocityPrefab(Clone)
+    localRotation: {x: 0.30409837, y: -0.09224878, z: -0.62300605, w: 0.7147572}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/R_ThumbMetacarpal/VelocityPrefab(Clone)
+    localRotation: {x: 0.45232514, y: 0.12249446, z: -0.7072799, w: 0.5292941}
+  - bonePath: Camera Offset/Right Hand Tracking/R_Wrist/VelocityPrefab(Clone)
+    localRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
+  - bonePath: Camera Offset/Right Hand Tracking/RightHand
+    localRotation: {x: 0, y: -0, z: -0, w: 1}
+  - bonePath: Trackables
+    localRotation: {x: -0, y: -0, z: -0, w: 1}
