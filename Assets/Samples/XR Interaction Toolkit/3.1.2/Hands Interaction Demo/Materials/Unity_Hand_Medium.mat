@@ -22,19 +22,18 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Unity_Hand_Medium
   m_Shader: {fileID: -6465566751694194690, guid: 89a6790c28795dd4987bb267c3d05338, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_ValidKeywords:
   - _BUILTIN_SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3002
   stringTagMap:
-    RenderType: Opaque
-  disabledShaderPasses: []
-  m_LockedProperties: 
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -84,7 +83,6 @@ Material:
     - Vector1_69b40c1ee2e1422cbfcae389f53b36a9: 1
     - Vector1_8671db567d5d4784b29e8ff511bd8f1e: 1
     - _AlphaClip: 0
-    - _AlphaToMask: 0
     - _BUILTIN_AlphaClip: 0
     - _BUILTIN_Blend: 0
     - _BUILTIN_CullMode: 2
@@ -98,9 +96,9 @@ Material:
     - _BUILTIN_ZWriteControl: 0
     - _Blend: 0
     - _CastShadows: 1
-    - _Cull: 0
-    - _DstBlend: 0
-    - _EdgeHighlightPower: 4.67
+    - _Cull: 2
+    - _DstBlend: 10
+    - _EdgeHighlightPower: 5
     - _FadeSize: 0.02
     - _FadeStart: 0.12
     - _Float: 0.33
@@ -125,8 +123,8 @@ Material:
     - _QueueControl: 1
     - _QueueOffset: 0
     - _Scale: 0.16
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _SrcBlend: 5
+    - _Surface: 1
     - _TransitionSize: 0.1
     - _WristRange: 0.06
     - _WristRangeBaseScalar: 1
@@ -134,7 +132,7 @@ Material:
     - _WristRangeScalarA: 1
     - _WristRangeScalarB: 1
     - _ZTest: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
     - Color_d710c7c4aa1a4153a2a64167ef0bec76: {r: 0.2623709, g: 0.6187253, b: 0.8301887, a: 1}
@@ -158,7 +156,7 @@ Material:
     - _FingerColor_3: {r: 1, g: 1, b: 1, a: 0}
     - _FingerColor_4: {r: 1, g: 1, b: 1, a: 0}
     - _FingerGlowColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.6509434, g: 0.57555026, b: 0.5066305, a: 0.65882355}
+    - _MainColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.65882355}
     - _OutlineColor: {r: 0.53773576, g: 0.53773576, b: 0.53773576, a: 1}
     - _OutlineGlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _PinchColor: {r: 0.95, g: 0.95, b: 0.95, a: 1}
