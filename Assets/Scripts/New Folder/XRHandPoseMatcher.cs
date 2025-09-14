@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -8,7 +9,7 @@ using TMPro;
 
 public class XRHandPoseMatcherBSL : MonoBehaviour
 {
-    // ---------- Joint order & parents (same as your original) ----------
+    // ---------- Joint order & parents (same as before) ----------
     static readonly XRHandJointID[] J = new XRHandJointID[]
     {
         XRHandJointID.Wrist, XRHandJointID.Palm,
@@ -24,23 +25,23 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
         -1, 0,  1,2,3,4,  1,6,7,8,9,  1,11,12,13,14,  1,16,17,18,19,  1,21,22,23,24
     };
 
-    // ---------- Config per gesture (letter) ----------
-    public enum HandRelation { Any, SideBySide, Stacked } // SideBySide: hands level; Stacked: one above the other
+    // ---------- Config per gesture ----------
+    public enum HandRelation { Any, SideBySide, Stacked } // spatial relation when both hands required
 
     [Serializable]
     public class BSLGesture
     {
         [Header("Label & Targets")]
-        public string label = "A";                 // e.g., "A".."Z"
-        public XRHandGhostRig targetLeft;          // can be null if gesture is right-only
-        public XRHandGhostRig targetRight;         // can be null if gesture is left-only
-        public bool requireLeft = true;            // set depending on the letter
-        public bool requireRight = false;          // set depending on the letter
+        public string label = "A";
+        public XRHandGhostRig targetLeft;
+        public XRHandGhostRig targetRight;
+        public bool requireLeft = true;
+        public bool requireRight = false;
 
         [Header("Spatial relation & distance checks (only used if both hands required)")]
         public HandRelation relation = HandRelation.SideBySide;
         [Tooltip("Minimum 3D distance between wrists to count as 'separate hands'.")]
-        public float minHandDistanceM = 0.06f;     // 6 cm default
+        public float minHandDistanceM = 0.06f;
         [Tooltip("For Stacked: minimum vertical separation to consider one above the other.")]
         public float minVerticalSeparationM = 0.06f;
         [Tooltip("For SideBySide: allowed vertical difference to still be considered 'level'.")]
@@ -82,9 +83,33 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
     [Tooltip("How long (seconds) a hand must continuously match before turning green.")]
     public float matchHoldSeconds = 0.15f;
 
+    // Leave the enum plain (no attributes)
+    public enum RecognitionMode { AnyBest, PrioritizeSelected, OnlySelected }
+
+    // Use the header on a field instead
+    [Header("Recognition priority (carousel)")]
+    [Tooltip("How to handle overlap between similar letters.")]
+    public RecognitionMode recognitionMode = RecognitionMode.OnlySelected;
+
+    [Tooltip("Set from your carousel. -1 = none selected.")]
+    public int selectedGestureIndex = -1;
+
+    [Header("Latch after recognition")]
+    [Tooltip("After both hands are green, keep text & green materials latched for this duration.")]
+    public float recognitionLatchSeconds = 2f;
+
+    [Header("Auto-advance Carousel after latch")]
+    [Tooltip("Advance the carousel to the next slide after the letter display period ends.")]
+    public bool autoAdvanceNext = true;
+    [Tooltip("Reference to your CarouselSwitcher (assign in Inspector).")]
+    public CarouselSwitcher carousel;
+    [Tooltip("Extra wait after latch ends before advancing.")]
+    public float autoAdvanceDelay = 0.05f;
+    bool _pendingAutoAdvance = false;
+
     [Header("Output Text (works with 3D TextMeshPro or uGUI)")]
-    public TMP_Text recognizedText;      // assign a TextMeshPro (3D) OR TextMeshProUGUI
-    public string noMatchText = "";      // what to display when nothing matches
+    public TMP_Text recognizedText;
+    public string noMatchText = "";
     [Tooltip("If true, rotates the 3D text to face the camera (ignored for uGUI).")]
     public bool faceCamera = false;
 
@@ -95,6 +120,10 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
 
     // Cache original materials to restore when not matched
     readonly Dictionary<XRHandGhostRig, Material> _originalMat = new Dictionary<XRHandGhostRig, Material>();
+
+    // --------- Latch state ----------
+    int _latchedIndex = -1;
+    float _latchUntil = 0f;
 
     void Awake()
     {
@@ -151,33 +180,90 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
     {
         if (_hands == null) return;
 
-        bool anyRecognized = false;
-        string bestLabel = null;
-
-        foreach (var g in gestures)
+        // --------- LATCH ACTIVE: keep showing the latched letter and keep materials green ----------
+        if (_latchedIndex >= 0)
         {
+            if (Time.time < _latchUntil)
+            {
+                if (recognizedText) recognizedText.text = gestures[_latchedIndex].label;
+                MaintainLatchVisuals();
+                return; // skip live evaluation while latched
+            }
+            else
+            {
+                // Latch just ended — queue auto-advance once
+                if (autoAdvanceNext && carousel && !_pendingAutoAdvance)
+                {
+                    _pendingAutoAdvance = true;
+                    StartCoroutine(AutoAdvanceCoroutine());
+                }
+                ClearLatch();
+            }
+        }
+
+        // ---------- Live evaluation ----------
+        int choice = -1; // index of gesture to output
+
+        // Build evaluation order per recognition mode
+        List<int> order = new List<int>();
+        bool validSelected = selectedGestureIndex >= 0 && selectedGestureIndex < gestures.Count;
+
+        switch (recognitionMode)
+        {
+            case RecognitionMode.OnlySelected:
+                if (validSelected) order.Add(selectedGestureIndex);
+                break;
+            case RecognitionMode.PrioritizeSelected:
+                if (validSelected) order.Add(selectedGestureIndex);
+                for (int i = 0; i < gestures.Count; i++)
+                    if (i != selectedGestureIndex) order.Add(i);
+                break;
+            case RecognitionMode.AnyBest:
+                for (int i = 0; i < gestures.Count; i++) order.Add(i);
+                break;
+        }
+
+        // If no order (e.g., OnlySelected but nothing selected) -> do nothing this frame
+        if (order.Count == 0)
+        {
+            if (recognizedText) recognizedText.text = noMatchText;
+            return;
+        }
+
+        // Evaluate in order; first full match wins
+        foreach (int gi in order)
+        {
+            var g = gestures[gi];
             bool leftOK = !g.requireLeft || EvaluateOne(_hands.leftHand, g.targetLeft, g.leftLocals, g.leftHas, true, ref g.leftT, ref g.leftGreen);
             bool rightOK = !g.requireRight || EvaluateOne(_hands.rightHand, g.targetRight, g.rightLocals, g.rightHas, false, ref g.rightT, ref g.rightGreen);
 
-            // Both required hands must be green
             if (leftOK && rightOK)
             {
-                // If gesture requires both hands, apply spatial checks; otherwise accept immediately.
                 bool passesRelation = true;
                 if (g.requireLeft && g.requireRight)
                     passesRelation = CheckSpatialRelation(g, out _, out _, out _);
 
                 if (passesRelation)
                 {
-                    anyRecognized = true;
-                    bestLabel = g.label;
-                    // Policy: last matching gesture wins. Change to "break;" if you prefer first-wins.
+                    choice = gi;
+                    break; // PRIORITY achieved
                 }
             }
         }
 
-        if (recognizedText)
-            recognizedText.text = anyRecognized ? bestLabel : noMatchText;
+        if (choice >= 0)
+        {
+            // Start latch
+            _latchedIndex = choice;
+            _latchUntil = Time.time + Mathf.Max(0.01f, recognitionLatchSeconds);
+
+            if (recognizedText) recognizedText.text = gestures[choice].label;
+            ForceGreenVisuals(gestures[choice]); // snap green & hold
+        }
+        else
+        {
+            if (recognizedText) recognizedText.text = noMatchText;
+        }
     }
 
     void LateUpdate()
@@ -201,9 +287,17 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
     }
 
     bool EvaluateOne(XRHand xr, XRHandGhostRig rig, Quaternion[] targetLocals, bool[] hasJoint,
-                     bool isLeft, ref float matchTimer, ref bool isGreen)
+                     bool isLeft, ref float matchTimer, ref bool isGreen, bool forceStickGreen = false)
     {
         if ((rig == null) || (targetLocals == null) || (hasJoint == null)) return false;
+
+        // Latch forces visuals & success without flapping (not used here but kept for extensibility)
+        if (forceStickGreen)
+        {
+            isGreen = true;
+            SwapMat(rig, matchedMaterial);
+            return true;
+        }
 
         // 1) Sample XR world rotations
         var xrWorldQ = new Quaternion[J.Length];
@@ -304,15 +398,10 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
         {
             case HandRelation.Any:
                 return true;
-
             case HandRelation.SideBySide:
-                // Hands roughly at the same height
                 return (vert <= g.verticalLevelToleranceM);
-
             case HandRelation.Stacked:
-                // One above the other, and not far apart in XZ
                 return (vert >= g.minVerticalSeparationM) && (planar <= g.maxPlanarSeparationM);
-
             default:
                 return true;
         }
@@ -330,6 +419,67 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
         rig.skinnedMesh.sharedMaterial = mat;
     }
 
+    // ---------- Latch helpers ----------
+    void ForceGreenVisuals(BSLGesture g)
+    {
+        if (g.targetLeft) SwapMat(g.targetLeft, matchedMaterial);
+        if (g.targetRight) SwapMat(g.targetRight, matchedMaterial);
+        g.leftGreen = g.requireLeft ? true : g.leftGreen;
+        g.rightGreen = g.requireRight ? true : g.rightGreen;
+        g.leftT = g.rightT = Mathf.Max(g.leftT, g.rightT); // keep timers high
+    }
+
+    void MaintainLatchVisuals()
+    {
+        if (_latchedIndex < 0 || _latchedIndex >= gestures.Count) return;
+        var g = gestures[_latchedIndex];
+        if (g.targetLeft) SwapMat(g.targetLeft, matchedMaterial);
+        if (g.targetRight) SwapMat(g.targetRight, matchedMaterial);
+    }
+
+    void ClearLatch()
+    {
+        if (_latchedIndex < 0 || _latchedIndex >= gestures.Count) { _latchedIndex = -1; return; }
+        var g = gestures[_latchedIndex];
+
+        // Reset visuals back to unmatched
+        if (g.targetLeft) SwapMat(g.targetLeft, unmatchedMaterial);
+        if (g.targetRight) SwapMat(g.targetRight, unmatchedMaterial);
+
+        // Reset state so next recognition must re-qualify
+        g.leftT = g.rightT = 0f;
+        g.leftGreen = g.rightGreen = false;
+
+        _latchedIndex = -1;
+        if (recognizedText) recognizedText.text = noMatchText;
+    }
+
+    // ---------- Auto-advance ----------
+    IEnumerator AutoAdvanceCoroutine()
+    {
+        if (autoAdvanceDelay > 0f)
+            yield return new WaitForSeconds(autoAdvanceDelay);
+
+        if (carousel != null)
+            carousel.Next();
+
+        _pendingAutoAdvance = false;
+    }
+
+    // ---------- PUBLIC API for your carousel ----------
+    public void SetSelectedGestureIndex(int index)
+    {
+        selectedGestureIndex = Mathf.Clamp(index, -1, gestures.Count - 1);
+        // Manual carousel change should clear the previous latch
+        if (_latchedIndex >= 0) ClearLatch();
+    }
+
+    public void SetRecognitionMode(RecognitionMode mode)
+    {
+        recognitionMode = mode;
+        if (_latchedIndex >= 0) ClearLatch();
+    }
+
     void OnDisable()
     {
         // Restore materials
@@ -344,6 +494,7 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
             g.leftGreen = g.rightGreen = false;
         }
 
+        _latchedIndex = -1;
         if (recognizedText) recognizedText.text = noMatchText;
     }
 }

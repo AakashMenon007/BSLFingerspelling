@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2080114fb6829f42ab85bc9f08b53a9, type: 3}
+  m_Name: BSLGestureSet
+  m_EditorClassIdentifier: 
+  entries:
+  - name: A
+    recording: {fileID: 4900000, guid: 1267e751f0ec4d34f955e09ba92f25c8, type: 3}
+  - name: B
+    recording: {fileID: 4900000, guid: c80ae4ab30653cf4cbb9ac19623c9576, type: 3}

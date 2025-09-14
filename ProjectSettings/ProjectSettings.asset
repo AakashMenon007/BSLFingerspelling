@@ -143,9 +143,6 @@ PlayerSettings:
   bundleVersion: 1.0.0
   preloadedAssets:
   - {fileID: 11400000, guid: f8a442de0c8906f4d9c00184993fc289, type: 2}
-  - {fileID: -4637038883354861042, guid: 68b8576ba099b294d90889251a4a15ba, type: 2}
-  - {fileID: 11400000, guid: 56a98106ce58f09459a9990007b50acb, type: 2}
-  - {fileID: 6482856677600133674, guid: 8b07288ba6be24e448175f41e3629239, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -832,9 +829,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
-    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
-    Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
+    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;READY_PLAYER_ME
+    EmbeddedLinux: READY_PLAYER_ME
+    GameCoreScarlett: READY_PLAYER_ME
+    GameCoreXboxOne: READY_PLAYER_ME
+    LinuxHeadlessSimulation: READY_PLAYER_ME
+    Nintendo Switch: READY_PLAYER_ME
+    PS4: READY_PLAYER_ME
+    PS5: READY_PLAYER_ME
+    QNX: READY_PLAYER_ME
+    Stadia: READY_PLAYER_ME
+    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;READY_PLAYER_ME
+    VisionOS: READY_PLAYER_ME
+    WebGL: READY_PLAYER_ME
+    Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;READY_PLAYER_ME
+    XboxOne: READY_PLAYER_ME
+    iPhone: READY_PLAYER_ME
+    tvOS: READY_PLAYER_ME
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
