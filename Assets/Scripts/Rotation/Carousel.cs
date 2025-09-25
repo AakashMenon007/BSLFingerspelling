@@ -21,9 +21,9 @@ public class CarouselSwitcher : MonoBehaviour
     [Tooltip("How many GameObjects should switch together as one 'slide'. Set to 2 for your case.")]
     public int groupSize = 2;
 
-    // ---------- NEW: hook to XRHandPoseMatcherBSL ----------
+    // ---------- Hook to XRHandPoseMatcherBSL ----------
     [Header("Hand Pose Matcher (optional)")]
-    [Tooltip("If assigned, the matcher will be told which gesture is currently selected in the carousel.")]
+    [Tooltip("If assigned, the matcher will be told which gesture is currently selected in the carousel, and auto-advance will listen to its latch event.")]
     public XRHandPoseMatcherBSL matcher;
 
     [Tooltip("If ON, matcher recognizes ONLY the selected gesture. If OFF, it prioritizes the selection but can fall back.")]
@@ -32,9 +32,31 @@ public class CarouselSwitcher : MonoBehaviour
     [Tooltip("Optional mapping from GROUP index -> matcher gesture index. Leave empty to use groupIndex directly.")]
     public List<int> gestureIndexByGroup = new List<int>();
 
-    int currentGroup = -1;
+    [Header("Auto-Advance from Matcher")]
+    [Tooltip("When the matcher latches the current letter, automatically move to the next carousel group after the latch window.")]
+    public bool autoAdvanceOnLatch = true;
 
-    int GroupCount => groupSize <= 0 ? 0 : (items.Count + groupSize - 1) / groupSize;
+    [Tooltip("Extra delay after matcher’s latch hold before advancing.")]
+    [Min(0f)] public float autoAdvanceDelay = 0.1f;
+
+    int currentGroup = -1;
+    bool _pendingAdvance = false;
+    float _advanceAt = -1f;
+    int _lastLatchedFrame = -9999;
+
+    public int GroupCount => groupSize <= 0 ? 0 : (items.Count + groupSize - 1) / groupSize;
+
+    void OnEnable()
+    {
+        if (matcher != null)
+            matcher.OnGestureLatched += HandleGestureLatched;
+    }
+
+    void OnDisable()
+    {
+        if (matcher != null)
+            matcher.OnGestureLatched -= HandleGestureLatched;
+    }
 
     void Start()
     {
@@ -54,8 +76,38 @@ public class CarouselSwitcher : MonoBehaviour
         for (int g = 0; g < GroupCount; g++)
             SetGroupActive(g, g == currentGroup);
 
-        // NEW: tell matcher which gesture is active now
+        // Sync matcher with initial group
         ApplyMatcherSelection();
+    }
+
+    void Update()
+    {
+        // Fire scheduled auto-advance after matcher’s latch window (+ delay)
+        if (_pendingAdvance && Time.time >= _advanceAt)
+        {
+            _pendingAdvance = false;
+            _advanceAt = -1f;
+            Next();
+        }
+
+        // Optional keyboard test
+        if (Input.GetKeyDown(KeyCode.RightArrow)) Next();
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) Previous();
+    }
+
+    // ---------- Auto-advance: listen to matcher latch ----------
+    void HandleGestureLatched(int gestureIndex, string label)
+    {
+        if (!autoAdvanceOnLatch) return;
+
+        // Debounce multiple latches in the same frame
+        if (Time.frameCount == _lastLatchedFrame) return;
+        _lastLatchedFrame = Time.frameCount;
+
+        // Schedule advance after latch window + extra delay
+        float hold = (matcher != null) ? Mathf.Max(0.01f, matcher.recognitionLatchSeconds) : 0f;
+        _pendingAdvance = true;
+        _advanceAt = Time.time + hold + Mathf.Max(0f, autoAdvanceDelay);
     }
 
     public void Next()
@@ -92,8 +144,12 @@ public class CarouselSwitcher : MonoBehaviour
         currentGroup = groupIndex;
         SetGroupActive(currentGroup, true);
 
-        // NEW: update matcher whenever slide changes
+        // Update matcher whenever slide changes
         ApplyMatcherSelection();
+
+        // Cancel any pending auto-advance if we switched manually
+        _pendingAdvance = false;
+        _advanceAt = -1f;
     }
 
     void SetGroupActive(int groupIndex, bool active)
@@ -117,7 +173,7 @@ public class CarouselSwitcher : MonoBehaviour
         return -1;
     }
 
-    // ---------- NEW: helper to drive the matcher ----------
+    // Drive the matcher from the carousel
     void ApplyMatcherSelection()
     {
         if (!matcher) return;
@@ -129,7 +185,7 @@ public class CarouselSwitcher : MonoBehaviour
 
         int gestureIndex = ResolveGestureIndex(currentGroup);
         matcher.SetSelectedGestureIndex(gestureIndex);
-        // Note: XRHandPoseMatcherBSL clears its latch on selection change.
+        // XRHandPoseMatcherBSL clears its latch on selection change.
     }
 
     int ResolveGestureIndex(int groupIndex)
@@ -143,12 +199,5 @@ public class CarouselSwitcher : MonoBehaviour
         }
         // Default: assume gesture list order matches group order
         return groupIndex;
-    }
-
-    // Optional keyboard test
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.RightArrow)) Next();
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) Previous();
     }
 }

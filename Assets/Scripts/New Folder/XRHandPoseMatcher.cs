@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,6 +76,16 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
     [Header("Latch after recognition")]
     public float recognitionLatchSeconds = 2f;
 
+    [Header("Auto-Advance")]
+    [Tooltip("When true, after a gesture latches and the latch window ends, the carousel moves to the next letter automatically.")]
+    public bool autoAdvanceEnabled = true;
+
+    [Tooltip("Extra delay (seconds) after the latch window before advancing.")]
+    public float autoAdvanceDelay = 0.1f;
+
+    float _autoAdvanceAt = -1f;
+    bool _pendingAutoAdvance = false;
+
     [Header("Output Text (debug)")]
     public TMP_Text recognizedText;
     public string noMatchText = "";
@@ -150,6 +160,18 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
     {
         if (_hands == null) return;
 
+        // Handle scheduled auto-advance (runs after latch window expires)
+        if (_pendingAutoAdvance && Time.time >= _autoAdvanceAt)
+        {
+            _pendingAutoAdvance = false;
+            _autoAdvanceAt = -1f;
+
+            if (gestures.Count > 0)
+            {
+                NextGesture();
+            }
+        }
+
         // Keep latched visuals/text during hold
         if (_latchedIndex >= 0)
         {
@@ -198,6 +220,13 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
 
             if (!suppressRecognizedTextOutput && recognizedText) recognizedText.text = gestures[choice].label;
             ForceGreenVisuals(gestures[choice]);
+
+            // Schedule auto-advance to fire right after the latch window
+            if (autoAdvanceEnabled && gestures.Count > 0)
+            {
+                _pendingAutoAdvance = true;
+                _autoAdvanceAt = _latchUntil + Mathf.Max(0f, autoAdvanceDelay);
+            }
 
             OnGestureLatched?.Invoke(choice, gestures[choice].label);
         }
@@ -323,7 +352,7 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
         }
 
         if (showDebugScore)
-            Debug.Log($"[{(isLeft ? "LEFT" : "RIGHT")}:{(rig ? rig.name : "null")}] avg:{avgDeg:0.0}Â° max:{maxDeg:0.0}Â° pos:{posDelta:0.000}m rot:{rotDelta:0.0}Â° => {(frameOK ? "OK" : "NO")} {(isGreen ? "GREEN" : "")}");
+            Debug.Log($"[{(isLeft ? "LEFT" : "RIGHT")}:{(rig ? rig.name : "null")}] avg:{avgDeg:0.0}° max:{maxDeg:0.0}° pos:{posDelta:0.000}m rot:{rotDelta:0.0}° => {(frameOK ? "OK" : "NO")} {(isGreen ? "GREEN" : "")}");
 
         return isGreen;
     }
@@ -398,6 +427,10 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
 
         _latchedIndex = -1;
         if (!suppressRecognizedTextOutput && recognizedText) recognizedText.text = noMatchText;
+
+        // Cancel any pending auto-advance when latch is cleared
+        _pendingAutoAdvance = false;
+        _autoAdvanceAt = -1f;
     }
 
     public void SetSelectedGestureIndex(int index)
@@ -410,6 +443,21 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
     {
         recognitionMode = mode;
         if (_latchedIndex >= 0) ClearLatch();
+    }
+
+    // Public carousel controls (manual buttons can call these)
+    public void NextGesture()
+    {
+        if (gestures == null || gestures.Count == 0) return;
+        int next = (selectedGestureIndex < 0) ? 0 : (selectedGestureIndex + 1) % gestures.Count;
+        SetSelectedGestureIndex(next);
+    }
+
+    public void PrevGesture()
+    {
+        if (gestures == null || gestures.Count == 0) return;
+        int prev = (selectedGestureIndex < 0) ? 0 : (selectedGestureIndex - 1 + gestures.Count) % gestures.Count;
+        SetSelectedGestureIndex(prev);
     }
 
     void OnDisable()
@@ -426,5 +474,9 @@ public class XRHandPoseMatcherBSL : MonoBehaviour
 
         _latchedIndex = -1;
         if (!suppressRecognizedTextOutput && recognizedText) recognizedText.text = noMatchText;
+
+        // Cancel any pending auto-advance when disabled
+        _pendingAutoAdvance = false;
+        _autoAdvanceAt = -1f;
     }
 }

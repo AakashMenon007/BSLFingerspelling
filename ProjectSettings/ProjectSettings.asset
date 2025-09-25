@@ -16,12 +16,12 @@ PlayerSettings:
   productName: BSLFingerspelling
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
-  m_SplashScreenLogoStyle: 1
+  m_SplashScreenLogoStyle: 0
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 0}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: ef7e9eb73d129f2499719d9a4a53fb04, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -143,9 +143,6 @@ PlayerSettings:
   bundleVersion: 1.0.0
   preloadedAssets:
   - {fileID: 11400000, guid: f8a442de0c8906f4d9c00184993fc289, type: 2}
-  - {fileID: -4637038883354861042, guid: 68b8576ba099b294d90889251a4a15ba, type: 2}
-  - {fileID: 11400000, guid: 56a98106ce58f09459a9990007b50acb, type: 2}
-  - {fileID: 6482856677600133674, guid: 8b07288ba6be24e448175f41e3629239, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -296,36 +293,6 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures: []
-      m_Width: 432
-      m_Height: 432
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 324
-      m_Height: 324
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 216
-      m_Height: 216
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 162
-      m_Height: 162
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 108
-      m_Height: 108
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
-      m_Width: 81
-      m_Height: 81
-      m_Kind: 2
-      m_SubKind: 
-    - m_Textures: []
       m_Width: 192
       m_Height: 192
       m_Kind: 0
@@ -354,6 +321,38 @@ PlayerSettings:
       m_Width: 36
       m_Height: 36
       m_Kind: 0
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 2800000, guid: d49b94b99ac39e343a5931963dc62a2e, type: 3}
+      - {fileID: 0}
+      m_Width: 432
+      m_Height: 432
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 324
+      m_Height: 324
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 216
+      m_Height: 216
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 162
+      m_Height: 162
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 108
+      m_Height: 108
+      m_Kind: 2
+      m_SubKind: 
+    - m_Textures: []
+      m_Width: 81
+      m_Height: 81
+      m_Kind: 2
       m_SubKind: 
     - m_Textures: []
       m_Width: 192
@@ -944,7 +943,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
